@@ -37,14 +37,16 @@ const CarsPage = () => {
   }, [page, sort, order]);
 
   return (
-    <article className="p-4 max-w-7xl mx-auto bg-[#c0d8ef]">
-      <SortSelect sort={sort} order={order} />
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-4">
-        {cars.map((car) => (
-          <CarCard key={car.unique_id} car={car} />
-        ))}
-      </section>
-      <Pagination page={meta.page} pageCount={meta.pageCount} />
+    <article className="p-4 max-w-7xl mx-auto bg-[#c0d8ef] h-full">
+      {cars.length>0 ? <div>
+        <SortSelect sort={sort} order={order} />
+        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-4">
+          {cars.map((car) => (
+            <CarCard key={car.unique_id} car={car} />
+          ))}
+        </section>
+        <Pagination page={meta.page} pageCount={meta.pageCount} />
+      </div>:<div className='w-full h-screen m-auto flex justify-center items-center'><p>Данные загружаются...</p></div>}
     </article>
   );
 };
