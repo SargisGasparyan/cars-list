@@ -4,19 +4,21 @@ import Image from "next/image";
 
 
 const CarCard = ({ car }: { car: Car }) => {
-  const imageUrl = car.images.image[0]
+  console.log(car?.images?.image[0],'infff')
+  const imageUrl = car?.images?.image[0]
     ? (car.images.image[0].startsWith("http")
         ? car.images.image[0]
-        : `https://testing-api.ru-rating.ru${car.images.image[0]}`)
+        : `https://testing-api.ru-rating.ru${car?.images?.image[0]}`)
     : "/no-image.png";
 
   return (
     <article className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
-      <section className="w-full h-40 bg-gray-100 relative">
+      <section className="w-full bg-gray-100 relative">
         <Image
+          width={500}
+          height={400}
           src={imageUrl}
           alt={car.model_rel.name}
-          fill
           className="object-cover"
         />
       </section>
