@@ -57,23 +57,28 @@ const CarCard = ({ car }: { car: Car }) => {
           {car.price.toLocaleString("ru-RU")} ₽
         </p>
 
-        <div className="flex flex-wrap text-gray-600 text-sm gap-2 mb-3">
+        <div className="flex flex-col text-gray-600 text-sm gap-2 mb-3">
           <div className="flex items-center gap-1">
             <svg className="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path d="M6 2h8l1 4h-10l1-4zM3 8h14v6H3V8z"/></svg>
             <span>{car.run.toLocaleString()} тыс. км</span>
           </div>
           <div className="flex items-center gap-1">
-            <svg className="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 016 6v6a6 6 0 01-12 0V8a6 6 0 016-6z"/></svg>
-            <span>{car.owners_number}</span>
+           <p className="font-bold">Тип двигателя:</p>
+            <span>{car.engine_type}</span>
           </div>
           <div className="flex items-center gap-1">
-            <svg className="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path d="M4 9h12v2H4z"/></svg>
-            <span>{car.state}</span>
+           <p className="font-bold">Цвет автомобиля:</p>
+            <span>{car.color}</span>
           </div>
           <div className="flex items-center gap-1">
-            <svg className="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path d="M6 2h8v16H6z"/></svg>
+           <p className="font-bold">Год:</p>
             <span>{car.year}</span>
           </div>
+          <div className="flex items-center gap-1">
+           <p className="font-bold">Состояние:</p>
+            <span>{car.state}</span>
+          </div>
+          
         </div>
 
         <button className="mt-auto bg-blue-600 hover:bg-blue-700 text-white rounded py-2 transition-colors">
