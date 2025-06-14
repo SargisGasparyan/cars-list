@@ -1,31 +1,59 @@
 import { Car } from "@/types";
 import Image from "next/image";
+import Slider from "react-slick";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 
-
+import "react-photo-view/dist/react-photo-view.css";
 
 const CarCard = ({ car }: { car: Car }) => {
-  console.log(car?.images?.image[0],'infff')
-  const imageUrl = car?.images?.image[0]
-    ? (car.images.image[0].startsWith("http")
-        ? car.images.image[0]
-        : `https://testing-api.ru-rating.ru${car?.images?.image[0]}`)
-    : "/no-image.png";
+  const images = car?.images?.image?.slice(1) || [];
+  const imageUrls = images.length
+    ? images.map((img) =>
+        img.startsWith("http")
+          ? img
+          : `https://testing-api.ru-rating.ru${img}`
+      )
+    : ["/no-image.png"];
+
+  const sliderSettings = {
+    dots: false,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+  };
 
   return (
     <article className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+      <section className="w-full relative">
+        <PhotoProvider>
+          <Slider {...sliderSettings}>
+            {imageUrls.map((url, index) => (
+              <div key={index}>
+                <PhotoView src={url}>
       <section className="w-full bg-gray-100 relative">
-        <Image
+                    <Image
+                      
           width={500}
           height={400}
-          src={imageUrl}
+          src={url}
           alt={car.model_rel.name}
-          className="object-cover"
-        />
+          className="object-cover"                  />
+                  </section>
+                </PhotoView>
+              </div>
+            ))}
+          </Slider>
+        </PhotoProvider>
       </section>
 
       <section className="p-3 flex flex-col flex-grow">
-        <h3 className="text-lg mb-1">{car.model_rel.name} {car.modification_id}</h3>
-        <p className="text-blue-600  text-xl mb-2">
+        <h3 className="text-lg mb-1">
+          {car.model_rel.name} {car.modification_id}
+        </h3>
+        <p className="text-blue-600 text-xl mb-2">
           {car.price.toLocaleString("ru-RU")} ₽
         </p>
 
